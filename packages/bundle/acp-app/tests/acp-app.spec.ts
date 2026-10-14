@@ -20,10 +20,14 @@ describe('dsh-acp-app bundle', () => {
       readFileSync(resolve(root, manifest.dsh!.bundle!.patch!), 'utf8'),
       { schema: entryListSchema },
     ) as Array<{
+      config?: { personaPrefix?: string }
       id?: string
       disabled?: boolean
       insert?: Array<{ config?: { model?: string; provider?: string }; id?: string; inject?: string[]; name?: string }>
     }>
+    expect(patches.find(patch => patch.id === 'system-prompt')).toMatchObject({
+      config: { personaPrefix: 'You are a coding agent.' },
+    })
     expect(patches.find(patch => patch.id === 'hmr')).toMatchObject({ disabled: true })
     expect(patches.find(patch => patch.id === 'session-title-llm')).toMatchObject({ disabled: true })
     const rows = patches.flatMap(patch => patch.insert ?? [])

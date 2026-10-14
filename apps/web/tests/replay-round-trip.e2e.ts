@@ -222,7 +222,7 @@ describe('web e2e: fresh round trip through the real assembly', () => {
     const paragraphs = system.split('\n\n')
     expect(paragraphs.slice(0, 2)).toEqual([
       'You are an AI agent powered by DeepSeek Harness.',
-      'You are a coding agent powered by the deepseek-v4-flash model.',
+      'You are a coding agent.',
     ])
     const cwd = agent.session.header.cwd
     if (cwd === undefined) throw new Error('the Web session has no working directory')
